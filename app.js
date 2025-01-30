@@ -23,8 +23,16 @@ app.get('/', (req, res) => {
 });
 
 app.post('/submit', (req, res) => {
-    console.log(req.body);
-    appointments.push(req.body);
+    //console.log(req.body);
+    const appointment = {
+        fname: req.body.fname,
+        lname: req.body.lname,
+        date: req.body.date,
+        time: req.body.date,
+        timestamp: new Date()
+    };
+
+    appointments.push(appointment);
     res.send(`<h1>Appointment Confirmed!! Thank you ${req.body.fname}!`);
 });
 
