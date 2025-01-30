@@ -4,8 +4,12 @@ import express from 'express';
 //Instantiate an Express application
 const app = express();
 
+const appointments = [];
+
 //Serve static files from the 'public' directory
 app.use(express.static('public'));
+
+app.use(express.urlencoded({ extended: true }));
 
 
 //Define a port number for our server to listen on
@@ -16,6 +20,16 @@ app.get('/', (req, res) => {
     
     //Send our home page as a response to the client
     res.sendFile(`${import.meta.dirname}/views/home.html`);
+});
+
+app.post('/submit', (req, res) => {
+    console.log(req.body);
+    appointments.push(req.body);
+    res.send(`<h1>Appointment Confirmed!! Thank you ${req.body.fname}!`);
+});
+
+app.get('/admin/appointments', (req, res) => {
+    res.send(appointments);
 });
 
 //Tell the server to listen on our specified port
